@@ -1,11 +1,11 @@
 T = 2*pi/10;
 t = 0:T/1000:1;
 x = 0.5 + cos(10*t) + sin(10*t) + cos(40*t) + sin(50*t) + sin(100*t) + cos(500*t + pi/4);
-N = 50;
+N = 30;
 
 [avg,ak,bk,rw,err] = fourier(t,x,T,N);
 
-f = 1/T:1/T:50/T;
+f = 1/T:1/T:30/T;
 
 figure;
 stem(f,ak)

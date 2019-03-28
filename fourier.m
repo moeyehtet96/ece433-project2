@@ -20,6 +20,3 @@ for k = 1:N
 end
 
 err = abs(rms(x,T,del_t)-rms(rw,T,del_t));
-
-rms(x,T,del_t)
-rms(rw,T,del_t)

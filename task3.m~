@@ -51,37 +51,16 @@ plot(t,i_ac)
 title("AC Current")
 
 figure;
-plot(t,V_T14)
-title("T14 Voltage")
+plot(t,V_S14)
 
 figure;
-plot(t,V_T23)
-title("T23 Voltage")
+plot(t,i_S14)
 
 figure;
-plot(t,V_d14)
-title("d14 Voltage")
+plot(t,V_S23)
 
 figure;
-plot(t,V_d23)
-title("d23 Voltage")
-
-figure;
-plot(t,i_T14)
-title("T14 Current")
-
-figure;
-plot(t,i_T23)
-title("T23 Current")
-
-figure;
-plot(t,i_d14)
-title("d14 Current")
-
-figure;
-plot(t,i_d23)
-title("d23 Current")
+plot(t,i_S23)
 
 figure;
 plot(t,i_dc)
-title("DC Current")
