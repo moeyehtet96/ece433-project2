@@ -1,4 +1,4 @@
-% Single Phase Inverter - 180 degree Switching
+% Single Phase Inverter - Sine Triangle
 
 clear
 clc
@@ -6,16 +6,20 @@ clc
 V_dc = 200; % Input DC Voltage
 L = 1e-3; % Load Inductance Value
 r = 0.1; % Load Resistance Value
-f_sw = 200; % Switching Frequency
+f_ac = 200; % Output AC Voltage Frequency
+T_ac = 1/f_ac; % Output AC Voltage Period
+f_sw = 4000; % Switching Frequency
 T_sw = 1/f_sw; % Switching Period
+m = 1; 
 del_t = T_sw/1000; % Time Step
-t_end = 10*T_sw; % Simulation End Time
+t_end = 2*T_ac; % Simulation End Time
 
 % Initializations
 i_ac(1) = -248.7060;
 t(1) = 0;
-T14(1) = 1;
-T23(1) = 0;
+d(1) = 0.5 + 0.5*m*cos(2*pi*200*t(1));
+T14(1) = tri_gen(100,t(1),f_sw) > d(1);
+T23(1) = tri_gen(100,t(1),f_sw) < d(1);
 V_ag(1) = T14(1)*V_dc;
 V_bg(1) = T23(1)*V_dc;
 V_ac(1) = V_ag(1) - V_bg(1);
@@ -23,8 +27,9 @@ k = 1;
 
 % Backward Euler Integration Routine
 while t(k) < t_end
-    T14(k+1) = tri_gen(100,t(k)+del_t,f_sw) > 0.5;
-    T23(k+1) = tri_gen(100,t(k)+del_t,f_sw) <= 0.5;
+    d(k+1) = 0.5 + 0.5*m*cos(2*pi*f_ac*(t(k)+del_t));
+    T14(k+1) = tri_gen(100,t(k)+del_t,f_sw) > d(k+1);
+    T23(k+1) = tri_gen(100,t(k)+del_t,f_sw) <= d(k+1);
     V_ag(k+1) = T14(k+1)*V_dc;
     V_bg(k+1) = T23(k+1)*V_dc;
     V_ac(k+1) = V_ag(k+1) - V_bg(k+1);

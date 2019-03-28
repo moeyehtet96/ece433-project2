@@ -1,4 +1,4 @@
-% Single Phase Inverter - 180 degree Switching
+% Single Phase Inverter - Sine Triangle
 
 clear
 clc
@@ -6,10 +6,15 @@ clc
 V_dc = 200; % Input DC Voltage
 L = 1e-3; % Load Inductance Value
 r = 0.1; % Load Resistance Value
-f_sw = 200; % Switching Frequency
+f_ac = 200; % Output AC Voltage Frequency
+T_ac = 1/f_ac; % Output AC Voltage Period
+f_sw = 4000; % Switching Frequency
 T_sw = 1/f_sw; % Switching Period
+m = 1; 
 del_t = T_sw/1000; % Time Step
-t_end = 10*T_sw; % Simulation End Time
+t_end = 10*T_ac; % Simulation End Time
+
+
 
 % Initializations
 i_ac(1) = -248.7060;
