@@ -1,5 +1,8 @@
 % Single Phase Inverter - Sine Triangle
-m = 1;
+clear all
+clc
+
+m = 1; % modular index
 
 V_dc = 200; % Input DC Voltage
 L = 1e-3; % Load Inductance Value
@@ -9,10 +12,10 @@ T_ac = 1/f_ac; % Output AC Voltage Period
 f_sw = 4000; % Switching Frequency
 T_sw = 1/f_sw; % Switching Period 
 del_t = T_sw/100; % Time Step
-t_end = 10*T_ac; % Simulation End Time
+t_end = 25*T_ac; % Simulation End Time
 
 % Initializations
-i_ac(1) = 0; %-248.7060;
+i_ac(1) = 0;
 t(1) = 0;
 d(1) = 0.5 + 0.5*m*cos(2*pi*200*t(1) - pi/2);
 c(1) = d(1) > tri_gen(100,t(1),f_sw);
@@ -57,63 +60,74 @@ while t(k) < t_end
     k = k+1;
 end
 
-tri_sw = tri_gen(100,t,f_sw);
-
-N = 500;
-[avg,ak,bk,rw,err] = fourier(t,V_ac,T_ac,N);
-
-fdmtl = bk(1);
-
-f = 1/T_ac:1/T_ac:500/T_ac;
-
 figure;
 plot(t,V_ac)
-xlim([8*T_ac 9*T_ac])
+xlim([23*T_ac 24*T_ac])
 ylim([-300 300])
 title("Output AC Voltage")
+xlabel("t (s)")
+ylabel("V_a_c (V)")
 
 figure;
 plot(t,i_ac)
-xlim([8*T_ac 9*T_ac])
+xlim([23*T_ac 24*T_ac])
 title("Output AC Current")
+xlabel("t (s)")
+ylabel("i_a_c (A)")
 
 figure;
 ax1 = subplot(4,2,1);
 plot(t,V_T14)
-xlim([8*T_ac 9*T_ac])
+xlim([23*T_ac 24*T_ac])
 title("Transistor 1 and 4 Voltage")
+xlabel("t (s)")
+ylabel("V_T_1_,_T_4 (V)")
 
 ax3 = subplot(4,2,3);
 plot(t,V_T23)
-xlim([8*T_ac 9*T_ac])
+xlim([23*T_ac 24*T_ac])
 title("Transistor 2 and 3 Voltage")
+xlabel("t (s)")
+ylabel("V_T_2_,_T_3 (V)")
 
 ax5 = subplot(4,2,5);
 plot(t,V_d14)
-xlim([8*T_ac 9*T_ac])
+xlim([23*T_ac 24*T_ac])
 title("Diode 1 and 4 Voltage")
+xlabel("t (s)")
+ylabel("V_d_1_,_d_4 (V)")
 
 ax7 = subplot(4,2,7);
 plot(t,V_d23)
-xlim([8*T_ac 9*T_ac])
+xlim([23*T_ac 24*T_ac])
 title("Diode 2 and 3 Voltage")
+xlabel("t (s)")
+ylabel("V_d_2_,_d_3 (V)")
 
 ax2 = subplot(4,2,2);
 plot(t,i_T14)
-xlim([8*T_ac 9*T_ac])
+xlim([23*T_ac 24*T_ac])
 title("Transistor 1 and 4 Current")
+xlabel("t (s)")
+ylabel("i_T_1_,_T_4 (A)")
 
 ax4 = subplot(4,2,4);
 plot(t,i_T23)
-xlim([8*T_ac 9*T_ac])
+xlim([23*T_ac 24*T_ac])
 title("Transistor 2 and 3 Current")
+xlabel("t (s)")
+ylabel("i_T_2_,_T_3 (A)")
 
 ax6 = subplot(4,2,6);
 plot(t,i_d14)
-xlim([8*T_ac 9*T_ac])
+xlim([23*T_ac 24*T_ac])
 title("Diode 1 and 4 Current")
+xlabel("t (s)")
+ylabel("i_d_1_,_d_4 (A)")
 
 ax8 = subplot(4,2,8);
 plot(t,i_d23)
-xlim([8*T_ac 9*T_ac])
+xlim([23*T_ac 24*T_ac])
 title("Diode 2 and 3 Current")
+xlabel("t (s)")
+ylabel("i_d_2_,_d_3 (A)")

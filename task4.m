@@ -29,6 +29,7 @@ i_T14(1) = i_S14(1)*(i_S14(1) > 0);
 i_T23(1) = i_S23(1)*(i_S23(1) > 0);
 i_d14(1) = i_S14(1)*-(i_S14(1) <= 0);
 i_d23(1) = i_S23(1)*-(i_S23(1) <= 0);
+i_dc(1) = i_S14(1) + i_S23(1);
 k = 1;
 
 % Backward Euler Integration Routine
@@ -49,14 +50,15 @@ while t(k) < t_end
     i_T23(k+1) = i_S23(k+1)*(i_S23(k+1) > 0);
     i_d14(k+1) = i_S14(k+1)*-(i_S14(k+1) <= 0);
     i_d23(k+1) = i_S23(k+1)*-(i_S23(k+1) <= 0);
+    i_dc(k+1) = i_S14(k+1) + i_S23(k+1);
     t(k+1) = t(k) + del_t;
     k = k+1;
 end
 
-N = 100;
+N = 30;
 [avg,ak,bk,rw,err] = fourier(t,V_ac,T_sw,N);
 
-f = 1/T_sw:1/T_sw:100/T_sw;
+f = 1/T_sw:1/T_sw:30/T_sw;
 
 figure;
 plot(t,V_ac)
@@ -128,6 +130,7 @@ plot(t,i_d14)
 xlim([23*T_sw 24*T_sw])
 ylim([-50 300])
 title("Diode 1 and 4 Current")
+xlabel("t (s)")
 ylabel("i_d_1_,_d_4 (A)")
 
 ax8 = subplot(4,2,8);
@@ -135,28 +138,38 @@ plot(t,i_d23)
 xlim([23*T_sw 24*T_sw])
 ylim([-50 300])
 title("Diode 2 and 3 Current")
+xlabel("t (s)")
 ylabel("i_d_2_,_d_3 (A)")
 
 figure;
+plot(t,i_dc)
+xlim([23*T_sw 24*T_sw])
+ylim([-300 300])
+title("DC Current")
+xlabel("t (s)")
+ylabel("i_d_c (A)")
+
+figure;
+ax9 = subplot(2,1,1);
 stem(f,ak)
 title("ak Vs frequency")
 xlabel("Frequency (Hz)")
 ylabel("ak")
 
-figure;
+ax10 = subplot(2,1,2);
 stem(f,bk)
 title("bk Vs frequency")
 xlabel("Frequency (Hz)")
 ylabel("bk")
 
 figure;
-ax1 = subplot(2,1,1);
+ax11 = subplot(2,1,1);
 plot(t,rw)
 title("Reconstructed Output Voltage")
 xlabel("t (s)")
 ylabel("V_a_c(Reconstructed) (V)")
 
-ax2 = subplot(2,1,2);
+ax12 = subplot(2,1,2);
 plot(t,V_ac)
 title("Original Output Voltage")
 xlabel("t (s)")

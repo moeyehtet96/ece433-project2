@@ -3,6 +3,7 @@ w = 2*pi/T; % rad/s
 del_t = t(2)-t(1); % time step
 n_period = T/del_t; % number of time data points in one period
 
+% loop for ak and bk
 for k = 1:N
     ak(k) = 0;
     bk(k) = 0;
@@ -12,11 +13,12 @@ for k = 1:N
     end
 end
 
-avg = average(x,T,del_t);
+avg = average(x,T,del_t); % average of input waveform
 
+% loop for reconstructed waveform
 rw = avg;
 for k = 1:N
     rw = rw + ak(k)*cos(k*w*t) + bk(k)*sin(k*w*t);
 end
 
-err = abs(rms(x,T,del_t)-rms(rw,T,del_t));
+err = sqrt(abs(x-rw).^2); % rms error

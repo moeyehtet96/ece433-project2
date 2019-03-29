@@ -38,42 +38,7 @@ while t(k) < t_end
     k = k+1;
 end
 
-tri_sw = tri_gen(100,t,f_sw);
-
 N = 500;
 [avg,ak,bk,rw,err] = fourier(t,V_ac,T_ac,N);
 
-ak
-bk
-
 fdmtl = bk(1);
-
-f = 1/T_ac:1/T_ac:500/T_ac;
-
-% figure;
-% plot(t,V_ac)
-% xlim([8*T_ac 9*T_ac])
-% ylim([-300 300])
-% title("Output AC Voltage")
-% 
-% figure;
-% plot(t,i_ac)
-% xlim([8*T_ac 9*T_ac])
-% title("Output AC Current")
-% 
-% figure;
-% stem(f,ak)
-% title("ak")
-% 
-% figure;
-% stem(f,bk)
-% title("bk")
-% 
-% figure;
-% ax1 = subplot(2,1,1);
-% plot(t,rw)
-% title("reconstructed")
-% 
-% ax2 = subplot(2,1,2);
-% plot(t,V_ac)
-% title("original")
